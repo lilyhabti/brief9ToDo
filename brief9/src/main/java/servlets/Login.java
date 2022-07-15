@@ -1,16 +1,20 @@
 package servlets;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import models.Tasks;
 import models.UserLogin;
 import models.Users;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
 import configuration.DBconnection;
 import daoImplementation.DaoImplementation;
@@ -44,11 +48,12 @@ public class Login extends HttpServlet {
 		boolean loginResult = login.getUser(user);
 		
 		if(loginResult) {
-			this.getServletContext().getRequestDispatcher("/WEB-INF/jsps/space.jsp").forward(request, response);
+			response.sendRedirect("list");
 		}else {
 			PrintWriter out = response.getWriter();
 			out.println("Information incorrect!!");
 		}
 	}
+
 
 }

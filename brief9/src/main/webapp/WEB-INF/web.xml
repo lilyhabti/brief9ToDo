@@ -36,4 +36,28 @@
     <servlet-name>Space</servlet-name>
     <url-pattern>/Space</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Space</servlet-name>
+    <url-pattern>/Space/new</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Space</servlet-name>
+    <url-pattern>/Space/insert</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Space</servlet-name>
+    <url-pattern>/Space/delete</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Space</servlet-name>
+    <url-pattern>/Space/edit</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Space</servlet-name>
+    <url-pattern>/Space/update</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Space</servlet-name>
+    <url-pattern>/Space/list</url-pattern>
+  </servlet-mapping>
 </web-app>

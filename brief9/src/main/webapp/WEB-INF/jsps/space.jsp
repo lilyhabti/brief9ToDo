@@ -84,7 +84,7 @@ body {
 <body>
 
 	<div class="table">
-	        <h1><a href="<%=request.getContextPath()%>/list" class="nav-link">My tasks:</a></h1>
+	        <h1>My tasks:</h1>
 	        
 			<div>
 			    <a href="<%=request.getContextPath()%>/new" class="btn-success">Add New Task</a>

@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Tasks;
+import models.UserLogin;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import java.util.List;
 
 import daoImplementation.DaoImplementation;
 
-
+@WebServlet("/")
 public class Space extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,7 +32,9 @@ public class Space extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getServletPath();
-
+		
+     System.out.println(action); 
+     
 		try {
 			switch (action) {
 			case "/new":
@@ -49,8 +52,12 @@ public class Space extends HttpServlet {
 			case "/update":
 				updateUser(request, response);
 				break;
-			default:
+			case "/list":
 				listUser(request, response);
+				break;
+			default:
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsps/space.jsp");
+				dispatcher.forward(request, response);
 				break;
 			}
 		} catch (SQLException ex) {
@@ -73,7 +80,9 @@ public class Space extends HttpServlet {
 	}
 	 
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("ID"));
+		int id = Integer.parseInt(request.getParameter("id"));
+		UserLogin.setId(id);
+		System.out.println(id);
 		Tasks existingTask = dao.selectTask(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsps/actions.jsp");
 		request.setAttribute("task", existingTask);
@@ -94,19 +103,20 @@ public class Space extends HttpServlet {
 	}
 	
 	private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
 		String status = request.getParameter("status");
 		String deadline = request.getParameter("deadline");
-		String categorie = request.getParameter("categorie");;
+		String categorie = request.getParameter("categorie");
 
-		Tasks oldTask = new Tasks(title, description, status,deadline,categorie);
+		Tasks oldTask = new Tasks(UserLogin.getId(),title, description, status,deadline,categorie);
 		dao.update(oldTask);
 		response.sendRedirect("list");
 	}
 	
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-		int id = Integer.parseInt(request.getParameter("ID"));
+		int id = Integer.parseInt(request.getParameter("id"));
 		dao.delete(id);
 		response.sendRedirect("list");
 

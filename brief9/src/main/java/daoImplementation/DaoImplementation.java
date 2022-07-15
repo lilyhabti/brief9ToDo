@@ -152,7 +152,7 @@ public class DaoImplementation implements Dao {
 
 	@Override
 	public void delete(int id) {
-		String query = "DELETE FROM tasks WHERE title =" + id;
+		String query = "DELETE FROM tasks WHERE id =" + id;
 
 		try {
 			statement = connection.createStatement();

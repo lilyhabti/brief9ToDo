@@ -127,21 +127,23 @@ h2 {
 <body>
     <div class="center">
     
-        <c:if test="${user != null}">
+        <c:if test="${task.id != null}">
 			 <form action="update" method="post">
 	    </c:if>
 	    
-		<c:if test="${user == null}">
+		<c:if test="${task.id == null}">
 			 <form action="insert" method="post">
 		</c:if>	
 		
 		<caption>
 			 <h2>
-				<c:if test="${user != null}">Edit Task </c:if>
-				<c:if test="${user == null}">Add New Task</c:if>
+				<c:if test="${task.id != null}">Edit Task </c:if>
+				<c:if test="${task.id == null}">Add New Task</c:if>
 			 </h2>
 		</caption>
-		
+		    <c:if test="${task.id != null}">
+					<input type="hidden" name="id" value="<c:out value='${task.id}' />" />
+				</c:if>
 			<div class="txt_field">
 				<input type="text" value="<c:out value='${task.title}' />" name="title" id="title" required>
 				 <label>Title:</label>
