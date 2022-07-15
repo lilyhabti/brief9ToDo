@@ -41,19 +41,19 @@ public class Space extends HttpServlet {
 				showNewForm(request, response);
 				break;
 			case "/insert":
-				insertUser(request, response);
+				insertTask(request, response);
 				break;
 			case "/delete":
-				deleteUser(request, response);
+				deleteTask(request, response);
 				break;
 			case "/edit":
 				showEditForm(request, response);
 				break;
 			case "/update":
-				updateUser(request, response);
+				updateTask(request, response);
 				break;
 			case "/list":
-				listUser(request, response);
+				listTask(request, response);
 				break;
 			default:
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsps/space.jsp");
@@ -67,7 +67,7 @@ public class Space extends HttpServlet {
 		
 	}
 	
-	private void listUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+	private void listTask(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 		List<Tasks> listTasks = dao.listTasks();
 		request.setAttribute("listTasks", listTasks);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsps/space.jsp");
@@ -82,7 +82,7 @@ public class Space extends HttpServlet {
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		UserLogin.setId(id);
-		System.out.println(id);
+		//System.out.println(id);
 		Tasks existingTask = dao.selectTask(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsps/actions.jsp");
 		request.setAttribute("task", existingTask);
@@ -90,7 +90,7 @@ public class Space extends HttpServlet {
 
 	}
 	
-	private void insertUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void insertTask(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
 		String status = request.getParameter("status");
@@ -102,7 +102,7 @@ public class Space extends HttpServlet {
 		response.sendRedirect("list");
 	}
 	
-	private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void updateTask(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 	
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
@@ -115,7 +115,7 @@ public class Space extends HttpServlet {
 		response.sendRedirect("list");
 	}
 	
-	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void deleteTask(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		dao.delete(id);
 		response.sendRedirect("list");
